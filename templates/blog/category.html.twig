@@ -1,0 +1,26 @@
+{% extends './base.html.twig' %}
+
+
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <h1>3 latest articles by category : </h1>
+
+        <div>
+            <h2>Category: {{ category.name }} </h2>
+
+
+
+            {% for article in articles %}
+                <div>
+                    <h2>{{ loop.index }} / {{ article.title }} </h2>
+                    <p>{{ article.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+    <a href="{{ path('homepage') }}">
+        Back to homepage.
+    </a>
+{% endblock %}

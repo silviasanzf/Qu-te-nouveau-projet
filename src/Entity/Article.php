@@ -27,10 +27,28 @@ class Article
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @return mixed
+     */
+    public function getContent ()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param mixed $content
+     */
+    public function setContent ($content): void
+    {
+        $this->content = $content;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="articles")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+
 
     public function getId(): ?int
     {
@@ -49,18 +67,6 @@ class Article
         return $this;
     }
 
-    public function getContent(): ?string
-    {
-        return $this->content;
-    }
-
-    public function setContent(string $content): self
-    {
-        $this->content = $content;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -72,4 +78,6 @@ class Article
 
         return $this;
     }
+
+
 }
