@@ -116,6 +116,11 @@ class BlogController extends AbstractController
             ->getRepository(Category::class)
             ->findOneByName($category);
 
+
+
+        $articles=$category->getArticles();
+
+
         if (!$category) {
             throw $this->createNotFoundException(
                 'No category with ' . $category . ' name, found in category table.'
@@ -123,13 +128,13 @@ class BlogController extends AbstractController
         }
 
 
-        $articles = $this->getDoctrine()
+        /*$articles = $this->getDoctrine()
             ->getRepository(Article::class)
             ->findBy(
                 array('category' => $category),
                 array('id' => 'desc'),
                 3
-                 );
+                 );*/
 
 
         return $this->render(
@@ -137,7 +142,6 @@ class BlogController extends AbstractController
             [
                 'category' => $category,
                 'articles' => $articles,
-
 
             ]
         );
