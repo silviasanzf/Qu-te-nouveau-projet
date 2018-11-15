@@ -15,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Article;
 
 use App\Entity\Category;
+use App\Entity\Tag;
+
 
 
 class BlogController extends AbstractController
@@ -73,6 +75,8 @@ class BlogController extends AbstractController
 
         $articleCategory=$article->getCategory();
 
+        $nameTag=$article->getTags();
+
 
 
 
@@ -89,6 +93,7 @@ class BlogController extends AbstractController
                 'article' => $article,
                 'slug' => $slug,
                 'category'=> $articleCategory,
+                'tag'=>$nameTag,
 
             ]
         );
@@ -148,6 +153,64 @@ class BlogController extends AbstractController
 
 
     }
+
+    /**
+     * Getting all articles of a tag
+     *
+     * @param string tag
+     *
+     * @Route("/tag/{name}", name="blog_show_tag")
+     *
+     * @return Response A response instance
+     */
+
+
+    public function showByTagName(string $name): Response
+    {
+
+
+        $name = $this->getDoctrine()
+            ->getRepository(Tag::class)
+            ->findOneByName($name);
+
+
+
+        $articles=$name->getArticles();
+
+
+
+
+
+        /*$articles = $this->getDoctrine()
+            ->getRepository(Article::class)
+            ->findBy(
+                array('category' => $category),
+                array('id' => 'desc'),
+                3
+                 );*/
+
+
+        return $this->render(
+            'blog/tag.html.twig',
+            [
+                'tag' => $name,
+                'articles' => $articles,
+
+            ]
+        );
+
+
+
+
+
+
+    }
+
+
+
+
+
+
 
 
 }

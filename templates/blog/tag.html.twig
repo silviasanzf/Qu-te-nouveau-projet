@@ -1,0 +1,26 @@
+{% extends './base.html.twig' %}
+
+
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+    <h1> articles by tags : </h1>
+
+    <div>
+        <h2>tag: {{ tag.name }} </h2>
+
+
+
+        {% for article in articles %}
+            <div>
+                <h2>{{ loop.index }} / {{ article.id }}.{{ article.title }} </h2>
+                <p>{{ article.content }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('homepage') }}">
+        Back to homepage.
+    </a>
+{% endblock %}
