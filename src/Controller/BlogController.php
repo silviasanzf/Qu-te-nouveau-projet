@@ -12,15 +12,50 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\Response;
-use App\Entity\Article;
 
+use App\Entity\Article;
 use App\Entity\Category;
 use App\Entity\Tag;
-
-
+//use App\Form\ArticleSearchType;
+use App\Form\CategoryType;
+use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
+    /**
+     * form add Category
+     *
+     * @Route("/category", name="blog_addCategory")
+     * @return Response A response instance
+     */
+
+    public function addCategory (Request $request): Response
+    {
+        $category = new Category ();
+        $form = $this->createForm(
+            CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        if($form->isSubmitted()){
+        $em->persist($category);
+        $em->flush();}
+
+
+
+        return $this->render(
+            'blog/addCategory.html.twig', [
+
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+
+
 
     /**
      * Show all row from article's entity
@@ -40,10 +75,13 @@ class BlogController extends AbstractController
             );
         }
 
+
         return $this->render(
-            'blog/index.html.twig',
-            ['articles' => $articles]
-        );
+            'blog/index.html.twig', [
+                'articles' => $articles,
+                'form' => $form->createView(),
+            ]
+         );
     }
 
 
@@ -169,13 +207,13 @@ class BlogController extends AbstractController
     {
 
 
-        $name = $this->getDoctrine()
+        $tag = $this->getDoctrine()
             ->getRepository(Tag::class)
             ->findOneByName($name);
 
 
 
-        $articles=$name->getArticles();
+        $articles=$tag->getArticles();
 
 
 
@@ -193,7 +231,7 @@ class BlogController extends AbstractController
         return $this->render(
             'blog/tag.html.twig',
             [
-                'tag' => $name,
+                'tag' => $tag,
                 'articles' => $articles,
 
             ]
