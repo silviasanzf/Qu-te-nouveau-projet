@@ -190,7 +190,7 @@ class BlogController extends AbstractController
      * @return Response A response instance
      */
 
-    public function showByCategory (string $category): Response
+    /*public function showByCategory (string $category): Response
     {
         if (!$category) {
             throw $this
@@ -223,7 +223,7 @@ class BlogController extends AbstractController
                  );*/
 
 
-        return $this->render(
+        /*return $this->render(
             'blog/category.html.twig',
             [
                 'category' => $category,
@@ -233,7 +233,7 @@ class BlogController extends AbstractController
         );
 
 
-    }
+    }*/
 
     /**
      * Getting all articles of a tag
