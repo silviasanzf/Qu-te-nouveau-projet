@@ -18,10 +18,53 @@ use App\Entity\Category;
 use App\Entity\Tag;
 //use App\Form\ArticleSearchType;
 use App\Form\CategoryType;
+use App\Form\ArticleType;
+
 use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
 {
+
+    /**
+     * form add Article
+     *
+     * @Route("/article", name="blog_addArticle")
+     * @return Response A response instance
+     */
+
+    public function addArticle (Request $request): Response
+    {
+        $article = new Article ();
+        $form = $this->createForm(
+            ArticleType::class, $article);
+
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()
+            ->getManager();
+
+        if($form->isSubmitted()){
+            $em->persist($article);
+            $em->flush();}
+
+
+
+        return $this->render(
+            'blog/addArticle.html.twig', [
+
+                'form' => $form->createView(),
+            ]
+        );
+    }
+
+
+
+
+
+
+
+
+
     /**
      * form add Category
      *
@@ -79,7 +122,7 @@ class BlogController extends AbstractController
         return $this->render(
             'blog/index.html.twig', [
                 'articles' => $articles,
-                'form' => $form->createView(),
+                //'form' => $form->createView(),//
             ]
          );
     }
