@@ -55,6 +55,11 @@ class Article
      */
     private $tags;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
@@ -120,7 +125,19 @@ class Article
     }
 
     public function __toString() {
-        return $this->title;
+        return  $this->title;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 
 
