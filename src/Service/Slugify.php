@@ -11,8 +11,12 @@ namespace App\Service;
 
 class Slugify
 {
-    public function generate (string $input): string
+    function generate (string $input): string
     {
+
+
+        $input = strtolower($input);
+
         $input = trim($input);
         $input = preg_replace('#Ç#', 'C', $input);
         $input = preg_replace('#ç#', 'c', $input);
@@ -28,12 +32,17 @@ class Slugify
         $input = preg_replace('#Ù|Ú|Û|Ü#', 'U', $input);
         $input = preg_replace('#ý|ÿ#', 'y', $input);
         $input = preg_replace('#Ý#', 'Y', $input);
-        $input = preg_replace('/(-)/', ' ', $input);
         $input = preg_replace('/( +)/', '-', $input);
         $input = preg_replace('/[^A-Za-z0-9-]/', '', $input);
         $input = preg_replace('/(-+)/', '-', $input);
-        return $input;
 
+        $string = strlen($input) - 1;
+
+        if (($input[$string]) !== '') {
+
+            $input = substr($input, 0, -1);
+        }
+        return $input;
     }
 }
 
