@@ -11,7 +11,7 @@ namespace App\Service;
 
 class Slugify
 {
-    function generate (string $input): string
+    public function generate (string $input): string
     {
 
 
