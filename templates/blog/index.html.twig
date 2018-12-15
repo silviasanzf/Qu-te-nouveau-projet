@@ -2,20 +2,11 @@
 {% extends './base.html.twig' %}
 {% block title %}Index{% endblock %}
 
-{% block stylesheets %}{% endblock %}
+
 
 {% block body %}
 
-
-
-
-
-
-
-
-
-
-
+    <div class="container">
     <h1>All articles from articles table : </h1>
     {% for article in articles %}
         <div>
@@ -26,4 +17,5 @@
     <a href="{{ path('homepage') }}">
         Back to homepage.
     </a>
+    </div>
 {% endblock %}
