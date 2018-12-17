@@ -44,7 +44,7 @@ class ArticleController extends AbstractController
             $em->persist($article);
             $em->flush();
 
-            $message = (new \Swift_Message())
+            $message = (new \Swift_Message( ))
                 ->setFrom('silviasanz3@yahoo.fr')
                 ->setTo('test1quete@gmail.com')
                 ->setContentType("text/html")
