@@ -44,11 +44,13 @@ class ArticleController extends AbstractController
             $em->persist($article);
             $em->flush();
 
+            $admin = getenv('MAILER_FROM_ADDRESS');
             $message = (new \Swift_Message( ))
+
                 ->setFrom('silviasanz3@yahoo.fr')
-                ->setTo('test1quete@gmail.com')
+                ->setTo ($admin)
                 ->setContentType("text/html")
-                ->setBody($this->renderView('/article/email/notification.html.twig'))
+                ->setBody($this->renderView('/article/email/nouvelArticle.html.twig', ['article' => $article]))
 
     ;
     $mailer->send($message);
